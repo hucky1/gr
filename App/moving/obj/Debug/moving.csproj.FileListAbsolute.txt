@@ -1,0 +1,9 @@
+C:\Users\hucky\source\repos\App\moving\bin\Debug\moving.exe.config
+C:\Users\hucky\source\repos\App\moving\bin\Debug\moving.exe
+C:\Users\hucky\source\repos\App\moving\bin\Debug\moving.pdb
+C:\Users\hucky\source\repos\App\moving\obj\Debug\moving.csprojAssemblyReference.cache
+C:\Users\hucky\source\repos\App\moving\obj\Debug\moving.Form1.resources
+C:\Users\hucky\source\repos\App\moving\obj\Debug\moving.Properties.Resources.resources
+C:\Users\hucky\source\repos\App\moving\obj\Debug\moving.csproj.GenerateResource.cache
+C:\Users\hucky\source\repos\App\moving\obj\Debug\moving.exe
+C:\Users\hucky\source\repos\App\moving\obj\Debug\moving.pdb
