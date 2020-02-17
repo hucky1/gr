@@ -156,7 +156,8 @@
             // trbFigRotRate
             // 
             this.trbFigRotRate.Location = new System.Drawing.Point(634, 152);
-            this.trbFigRotRate.Minimum = 1;
+            this.trbFigRotRate.Maximum = 20;
+            this.trbFigRotRate.Minimum = 5;
             this.trbFigRotRate.Name = "trbFigRotRate";
             this.trbFigRotRate.Size = new System.Drawing.Size(149, 45);
             this.trbFigRotRate.TabIndex = 24;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ namespace moving
 {
     public partial class Form1 : Form
     {
+        double freq = 0.04;
         public List<PointF> square = new List<PointF>();
         public List<PointF> rhombus = new List<PointF>();
         const int default_a = 120;
@@ -20,12 +22,12 @@ namespace moving
         double xc, yc; //координаты центра
         int a; //размер фигуры и координаты центра
         int v = 1; //скорость движения
-        PointF[] p1 = new PointF[4]; //массив точек для ромба
-        PointF[] p2 = new PointF[4]; //массив точек для квадрата
  
         double fi; // угол, на который фигура поворачивается при обновлении таймера
         double c_fi = 0; // угол, на который фигура повернулась
-        int rotation_rate = 1; // скорость вращения
+        int rotation_rate = 5; // скорость вращения
+
+        StreamWriter file; 
         public Form1()
         {
             InitializeComponent();
@@ -35,13 +37,17 @@ namespace moving
             a = default_a; // задаем размер фигуры
                            // Вычисляем координаты центра, чтобы фигура находилась в левом нижнем углу
                            // pictureBox1.W6idth и pictureBox1.Height - ширина и высота pictureBox
-            xc = Convert.ToInt32((a / 2.0) * Math.Cos(Math.PI / 6));
-            yc = Convert.ToInt32(pictureBox1.Height - a / 2.0);
+                           //xc = Convert.ToInt32((a / 2.0) * Math.Cos(Math.PI / 6));
+                           // yc = Convert.ToInt32(pictureBox1.Height - a / 2.0);
+            xc = a / 2;
+            yc = pictureBox1.Height - a;
             fi = 3 * dir * Math.PI / 180;
             // начальное положение ползунков
             trbFigRotRate.Value = rotation_rate;
             trbFigSize.Value = a;
             trbFigSpeed.Value = v;
+
+            file = new StreamWriter("D:\\TestFile.txt");
         }
         static private PointF RotatePoint(PointF p, float angle)
         {
@@ -66,18 +72,18 @@ namespace moving
         }
 
         public void RotateRom(float angle, PointF pivot)
-        {          
+        {
             rhombus = new List<PointF>(rhombus.Select(p => new PointF(p.X - pivot.X, p.Y - pivot.Y)));
-            Rotate(angle);
+            RotateRom(angle);
             rhombus = new List<PointF>(rhombus.Select(p => new PointF(p.X + pivot.X, p.Y + pivot.Y)));
         }
 
         public void Rotate(float angle, PointF pivot)
         {
-           square = new List<PointF>(square.Select(p => new PointF(p.X - pivot.X, p.Y - pivot.Y)));
+            square = new List<PointF>(square.Select(p => new PointF(p.X - pivot.X, p.Y - pivot.Y)));
             Rotate(angle);
-          square = new List<PointF>(square.Select(p => new PointF(p.X + pivot.X, p.Y + pivot.Y)));
-          
+            square = new List<PointF>(square.Select(p => new PointF(p.X + pivot.X, p.Y + pivot.Y)));
+
         }
 
         private byte colorInc()
@@ -120,7 +126,13 @@ namespace moving
             dx = v * dir; //приращение координаты зависит от направления и скорости       
             fi = 1 * dir * Math.PI / (180); //угол меняет направление         
             xc = xc + dx;
-            yc = pictureBox1.Height  + ((pictureBox1.Height - 4 * a)) * Math.Sin(0.04 * (xc - a / 2));
+            //yc = pictureBox1.Height  + ((pictureBox1.Height - 4 * a)) * Math.Sin(0.04 * (xc - a / 2));
+             yc = pictureBox1.Height - a * 2 / 2.0 - a * Math.Sin(freq * freq);
+            freq += 0.01;
+
+            //записать в него
+
+            //закрыть для сохранения данных
 
         }
 
@@ -155,6 +167,7 @@ namespace moving
             yc = Convert.ToInt32(pictureBox1.Height - a / 2.0);
             c_fi = 0;
             Draw();
+            file.Close();
         }
 
         private void trbFigSize_Scroll(object sender, EventArgs e)
@@ -164,23 +177,28 @@ namespace moving
 
         private void Draw()
         {
+          
             Graphics g = pictureBox1.CreateGraphics(); // Создание графического объекта
             Brush br1 = new SolidBrush(Color.FromArgb(colorDec(), colorDec(), colorInc())); // кисть ромба
             Brush br2 = new SolidBrush(Color.FromArgb(colorInc(), colorDec(), colorInc())); //кисть квадрата
             g.Clear(SystemColors.Control); // стирание
 
-            square.Add(new PointF((float)(xc + a / 4), (float)(yc + pictureBox1.Height - ((a / 2) + (a / 4)) - 500)));
-            square.Add(new PointF((float)((xc + a / 2) + (a / 4)), (float)(yc + pictureBox1.Height - ((a / 2) + (a / 4)) - 500)));
-            square.Add(new PointF((float)((xc + a / 2) + (a / 4)), (float)(yc + pictureBox1.Height - (a / 4) - 500)));
-            square.Add(new PointF((float)(xc + a / 4), (float)(yc + pictureBox1.Height - (a / 4) - 500)));
+            
+            square.Add(new PointF((float)(xc + a / 4), (float)(yc + pictureBox1.Height - ((a / 2) + (a / 4)))));
+            square.Add(new PointF((float)((xc + a / 2) + (a / 4)), (float)(yc + pictureBox1.Height - ((a / 2) + (a / 4)))));
+            square.Add(new PointF((float)((xc + a / 2) + (a / 4)), (float)(yc + pictureBox1.Height - (a / 4))));
+            square.Add(new PointF((float)(xc + a / 4), (float)(yc + pictureBox1.Height - (a / 4))));
 
-           rhombus.Add(new PointF((float)(xc + a / 2), (float)(yc + pictureBox1.Height - a - 500)));
-           rhombus.Add(new PointF((float)(xc + a), (float)yc + pictureBox1.Height - (a / 2) - 500));
-           rhombus.Add(new PointF((float)(xc + a / 2), (float)(yc + pictureBox1.Height - 500)));
-           rhombus.Add(new PointF((float)(xc), (float)(yc + pictureBox1.Height - (a / 2) - 500)));
+           rhombus.Add(new PointF((float)(xc + a / 2), (float)(yc + pictureBox1.Height - a )));
+           rhombus.Add(new PointF((float)(xc + a), (float)yc + pictureBox1.Height - (a / 2)));
+           rhombus.Add(new PointF((float)(xc + a / 2), (float)(yc + pictureBox1.Height)));
+           rhombus.Add(new PointF((float)(xc), (float)(yc + pictureBox1.Height - (a / 2))));
 
-          //  Rotate((float)trbFigRotRate.Value, new PointF((float)(xc), (float)(yc)));
-           // RotateRom((float)trbFigRotRate.Value, new PointF((float)(xc), (float)(yc)));
+           // Rotate((float)(trbFigRotRate.Value*(Math.PI/180)), new PointF((float)(xc), (float)(yc)));
+            //RotateRom((float)(trbFigRotRate.Value * (Math.PI / 180)), new PointF((float)(xc), (float)(yc)));
+
+            Rotate((float)trbFigRotRate.Value, new PointF((float)(xc), (float)(yc)));
+            RotateRom((float)trbFigRotRate.Value, new PointF((float)(xc), (float)(yc)));
 
             PointF[] sqArr = square.ToArray();
             PointF[] romArr = rhombus.ToArray();
@@ -189,6 +207,11 @@ namespace moving
           
             g.FillPolygon(br2, romArr);
             g.FillPolygon(br1, sqArr);
+
+
+            file.WriteLine(String.Format("xc = {0}; xy = {1};  00 = {2}; 01 = {3}; 10 = {4}; 11 = {5}", xc,yc  ,square[0], square[1], square[2], square[3]));
+            square.Clear();
+            rhombus.Clear();
 
             lblXcYc.Text = String.Format("X: {0:0.00}, Y: {1:0.00}", xc, yc); // вывод координат центра тяжести точки
         }
