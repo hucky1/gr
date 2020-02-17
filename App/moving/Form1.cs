@@ -12,17 +12,17 @@ namespace moving
 {
     public partial class Form1 : Form
     {
+        public List<PointF> square = new List<PointF>();
+        public List<PointF> rhombus = new List<PointF>();
         const int default_a = 120;
-        double i =1;
         int dir = 1; //направление движения по молчанию вперед
         double dx = 0.1; //приращение по х при движении
         double xc, yc; //координаты центра
         int a; //размер фигуры и координаты центра
         int v = 1; //скорость движения
-        Point[] p1 = new Point[4]; //массив точек для ромба
-        Point[] p2 = new Point[4]; //массив точек для квадрата
-        double[] x = new double[8];
-        double[] y = new double[8];
+        PointF[] p1 = new PointF[4]; //массив точек для ромба
+        PointF[] p2 = new PointF[4]; //массив точек для квадрата
+ 
         double fi; // угол, на который фигура поворачивается при обновлении таймера
         double c_fi = 0; // угол, на который фигура повернулась
         int rotation_rate = 1; // скорость вращения
@@ -43,26 +43,43 @@ namespace moving
             trbFigSize.Value = a;
             trbFigSpeed.Value = v;
         }
-        private double[] x_rot(double[] x0, double[] y0)
+        static private PointF RotatePoint(PointF p, float angle)
         {
-            double[] x1 = new double[x.Length];
-            for (int i = 0; i < x.Length; i++)
-            {
-                x1[i] = (x0[i]) * Math.Cos(c_fi) - (y0[i]) * Math.Sin(c_fi);
-            }
-            return x1;
+            var c = (float)Math.Cos((double)angle);
+            var s = (float)Math.Sin((double)angle);
+            var x = p.X;
+            var y = p.Y;
+
+            return new PointF(
+                x * c - y * s,
+                x * s + y * c
+            );
         }
 
-        // Расчет координат y точек при вращении
-        private double[] y_rot(double[] x0, double[] y0)
-        {
-            double[] y1 = new double[x.Length];
-            for (int i = 0; i < x.Length; i++)
-            {
-                y1[i] = (x0[i]) * Math.Sin(c_fi) + (y0[i]) * Math.Cos(c_fi);
-            }
-            return y1;
+        public void RotateRom(float angle)
+        { 
+            rhombus = new List<PointF>(rhombus.Select(p => RotatePoint(p, angle)));
         }
+        public void Rotate(float angle)
+        {
+           square = new List<PointF>(square.Select(p => RotatePoint(p, angle))); 
+        }
+
+        public void RotateRom(float angle, PointF pivot)
+        {          
+            rhombus = new List<PointF>(rhombus.Select(p => new PointF(p.X - pivot.X, p.Y - pivot.Y)));
+            Rotate(angle);
+            rhombus = new List<PointF>(rhombus.Select(p => new PointF(p.X + pivot.X, p.Y + pivot.Y)));
+        }
+
+        public void Rotate(float angle, PointF pivot)
+        {
+           square = new List<PointF>(square.Select(p => new PointF(p.X - pivot.X, p.Y - pivot.Y)));
+            Rotate(angle);
+          square = new List<PointF>(square.Select(p => new PointF(p.X + pivot.X, p.Y + pivot.Y)));
+          
+        }
+
         private byte colorInc()
         {
             try
@@ -103,9 +120,7 @@ namespace moving
             dx = v * dir; //приращение координаты зависит от направления и скорости       
             fi = 1 * dir * Math.PI / (180); //угол меняет направление         
             xc = xc + dx;
-            // yc = ((pictureBox1.Height -2*a)/2* Math.Sin(i)-200); //движение по синусоиде   
             yc = pictureBox1.Height  + ((pictureBox1.Height - 4 * a)) * Math.Sin(0.04 * (xc - a / 2));
-            i +=0.05;
 
         }
 
@@ -154,47 +169,27 @@ namespace moving
             Brush br2 = new SolidBrush(Color.FromArgb(colorInc(), colorDec(), colorInc())); //кисть квадрата
             g.Clear(SystemColors.Control); // стирание
 
-            //рассчет координат точек фигуры относительно центра
-            //квадрат
-            x[0] = Convert.ToInt32((xc+a / 4));
-            y[0] = Convert.ToInt32(yc+pictureBox1.Height - ((a / 2) + (a / 4)))-500;
-            x[1] = Convert.ToInt32((xc+a / 2) + (a / 4));
-            y[1] = Convert.ToInt32(yc+pictureBox1.Height - ((a / 2) + (a / 4)))-500;
-            x[2] = Convert.ToInt32((xc+a / 2) + (a / 4));
-            y[2] = Convert.ToInt32(yc+pictureBox1.Height - (a / 4))-500;
-            x[3] = Convert.ToInt32(xc+a / 4);
-            y[3] = Convert.ToInt32(yc+pictureBox1.Height - (a / 4))-500;
-            //ромб
-            x[4] = Convert.ToInt32(xc+a / 2);
-            y[4] = Convert.ToInt32(yc+pictureBox1.Height - a)-500;
-            x[5] = Convert.ToInt32(xc+a);
-            y[5] = Convert.ToInt32(yc+pictureBox1.Height - (a / 2))-500;
-            x[6] = Convert.ToInt32(xc+a / 2);
-            y[6] = Convert.ToInt32(yc+pictureBox1.Height)-500;
-            x[7] = Convert.ToInt32(xc+0);
-            y[7] = Convert.ToInt32(yc+pictureBox1.Height - (a / 2))-500;
+            square.Add(new PointF((float)(xc + a / 4), (float)(yc + pictureBox1.Height - ((a / 2) + (a / 4)) - 500)));
+            square.Add(new PointF((float)((xc + a / 2) + (a / 4)), (float)(yc + pictureBox1.Height - ((a / 2) + (a / 4)) - 500)));
+            square.Add(new PointF((float)((xc + a / 2) + (a / 4)), (float)(yc + pictureBox1.Height - (a / 4) - 500)));
+            square.Add(new PointF((float)(xc + a / 4), (float)(yc + pictureBox1.Height - (a / 4) - 500)));
 
-            
-            double[] temp = new double[8];
-            temp = x; //копируем массив x во временную переменную         
-           x = x_rot(temp, y);
-            y = y_rot(temp, y);
+           rhombus.Add(new PointF((float)(xc + a / 2), (float)(yc + pictureBox1.Height - a - 500)));
+           rhombus.Add(new PointF((float)(xc + a), (float)yc + pictureBox1.Height - (a / 2) - 500));
+           rhombus.Add(new PointF((float)(xc + a / 2), (float)(yc + pictureBox1.Height - 500)));
+           rhombus.Add(new PointF((float)(xc), (float)(yc + pictureBox1.Height - (a / 2) - 500)));
 
-            //заполняем массив точек квадрата
-            p1[0] = new Point((int)(x[0]), (int)(y[0]));
-            p1[1] = new Point((int)(x[1]), (int)(y[1]));
-            p1[2] = new Point((int)(x[2]), (int)(y[2]));
-            p1[3] = new Point((int)(x[3]), (int)(y[3]));
+          //  Rotate((float)trbFigRotRate.Value, new PointF((float)(xc), (float)(yc)));
+           // RotateRom((float)trbFigRotRate.Value, new PointF((float)(xc), (float)(yc)));
 
-            //заполняем массив точек ромба
-            p2[0] = new Point((int)(x[4]), (int)(y[4]));
-            p2[1] = new Point((int)(x[5]), (int)(y[5]));
-            p2[2] = new Point((int)(x[6]), (int)(y[6]));
-            p2[3] = new Point((int)(x[7]), (int)(y[7]));
+            PointF[] sqArr = square.ToArray();
+            PointF[] romArr = rhombus.ToArray();
 
 
-            g.FillPolygon(br2, p2);
-            g.FillPolygon(br1, p1);
+          
+            g.FillPolygon(br2, romArr);
+            g.FillPolygon(br1, sqArr);
+
             lblXcYc.Text = String.Format("X: {0:0.00}, Y: {1:0.00}", xc, yc); // вывод координат центра тяжести точки
         }
     }
