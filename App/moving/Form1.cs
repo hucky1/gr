@@ -39,8 +39,8 @@ namespace moving
                            // pictureBox1.W6idth и pictureBox1.Height - ширина и высота pictureBox
                            //xc = Convert.ToInt32((a / 2.0) * Math.Cos(Math.PI / 6));
                            // yc = Convert.ToInt32(pictureBox1.Height - a / 2.0);
-            xc = a / 2;
-            yc = pictureBox1.Height - a;
+            xc = pictureBox1.Width/2;
+            yc = pictureBox1.Height/2;
             fi = 3 * dir * Math.PI / 180;
             // начальное положение ползунков
             trbFigRotRate.Value = rotation_rate;
@@ -123,11 +123,11 @@ namespace moving
 
             Draw(); //перерисовываем фигуру   
 
-            dx = v * dir; //приращение координаты зависит от направления и скорости       
-            fi = 1 * dir * Math.PI / (180); //угол меняет направление         
-            xc = xc + dx;
-            //yc = pictureBox1.Height  + ((pictureBox1.Height - 4 * a)) * Math.Sin(0.04 * (xc - a / 2));
-             yc = pictureBox1.Height - a * 2 / 2.0 - a * Math.Sin(freq * freq);
+            //dx = v * dir; //приращение координаты зависит от направления и скорости       
+           // fi = 1 * dir * Math.PI / (180); //угол меняет направление         
+           // xc = xc + dx;
+           // yc = (500) * Math.Sin(0.04 * (xc - a / 2));
+            // yc = pictureBox1.Height - a * 2 / 2.0 - a * Math.Sin(freq * freq);
             freq += 0.01;
 
             //записать в него
@@ -194,8 +194,10 @@ namespace moving
            rhombus.Add(new PointF((float)(xc + a / 2), (float)(yc + pictureBox1.Height)));
            rhombus.Add(new PointF((float)(xc), (float)(yc + pictureBox1.Height - (a / 2))));
 
-           // Rotate((float)(trbFigRotRate.Value*(Math.PI/180)), new PointF((float)(xc), (float)(yc)));
-            //RotateRom((float)(trbFigRotRate.Value * (Math.PI / 180)), new PointF((float)(xc), (float)(yc)));
+            float fi__ = (float) (trbFigRotRate.Value * (Math.PI / 180));
+
+            //Rotate(fi__, new PointF((float)(xc), (float)(yc)));
+           // RotateRom(fi__, new PointF((float)(xc), (float)(yc)));
 
             Rotate((float)trbFigRotRate.Value, new PointF((float)(xc), (float)(yc)));
             RotateRom((float)trbFigRotRate.Value, new PointF((float)(xc), (float)(yc)));
@@ -209,9 +211,9 @@ namespace moving
             g.FillPolygon(br1, sqArr);
 
 
-            file.WriteLine(String.Format("xc = {0}; xy = {1};  00 = {2}; 01 = {3}; 10 = {4}; 11 = {5}", xc,yc  ,square[0], square[1], square[2], square[3]));
-            square.Clear();
-            rhombus.Clear();
+            //file.WriteLine(String.Format("xc = {0}; xy = {1};  00 = {2}; 01 = {3}; 10 = {4}; 11 = {5}", xc,yc  ,square[0], square[1], square[2], square[3]));
+           // square.Clear();
+           // rhombus.Clear();
 
             lblXcYc.Text = String.Format("X: {0:0.00}, Y: {1:0.00}", xc, yc); // вывод координат центра тяжести точки
         }

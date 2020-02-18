@@ -51,7 +51,7 @@
             // 
             // trbFigSize
             // 
-            this.trbFigSize.Location = new System.Drawing.Point(633, 37);
+            this.trbFigSize.Location = new System.Drawing.Point(832, 37);
             this.trbFigSize.Maximum = 140;
             this.trbFigSize.Minimum = 80;
             this.trbFigSize.Name = "trbFigSize";
@@ -63,7 +63,7 @@
             // btnDefaultA
             // 
             this.btnDefaultA.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnDefaultA.Location = new System.Drawing.Point(642, 387);
+            this.btnDefaultA.Location = new System.Drawing.Point(841, 387);
             this.btnDefaultA.Name = "btnDefaultA";
             this.btnDefaultA.Size = new System.Drawing.Size(137, 41);
             this.btnDefaultA.TabIndex = 21;
@@ -74,7 +74,7 @@
             // btnDraw
             // 
             this.btnDraw.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnDraw.Location = new System.Drawing.Point(642, 332);
+            this.btnDraw.Location = new System.Drawing.Point(841, 332);
             this.btnDraw.Name = "btnDraw";
             this.btnDraw.Size = new System.Drawing.Size(137, 49);
             this.btnDraw.TabIndex = 20;
@@ -85,7 +85,7 @@
             // btnStart
             // 
             this.btnStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnStart.Location = new System.Drawing.Point(642, 290);
+            this.btnStart.Location = new System.Drawing.Point(841, 290);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(137, 36);
             this.btnStart.TabIndex = 19;
@@ -96,7 +96,7 @@
             // btnStop
             // 
             this.btnStop.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnStop.Location = new System.Drawing.Point(642, 243);
+            this.btnStop.Location = new System.Drawing.Point(841, 243);
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(137, 40);
             this.btnStop.TabIndex = 18;
@@ -109,7 +109,7 @@
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.pictureBox1.Location = new System.Drawing.Point(7, 19);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(620, 412);
+            this.pictureBox1.Size = new System.Drawing.Size(819, 584);
             this.pictureBox1.TabIndex = 17;
             this.pictureBox1.TabStop = false;
             // 
@@ -120,7 +120,7 @@
             // lblXcYc
             // 
             this.lblXcYc.AutoSize = true;
-            this.lblXcYc.Location = new System.Drawing.Point(639, 212);
+            this.lblXcYc.Location = new System.Drawing.Point(838, 212);
             this.lblXcYc.Name = "lblXcYc";
             this.lblXcYc.Size = new System.Drawing.Size(155, 13);
             this.lblXcYc.TabIndex = 29;
@@ -130,7 +130,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(639, 128);
+            this.label3.Location = new System.Drawing.Point(838, 128);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(140, 15);
             this.label3.TabIndex = 28;
@@ -140,7 +140,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(639, 19);
+            this.label1.Location = new System.Drawing.Point(838, 19);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(111, 15);
             this.label1.TabIndex = 26;
@@ -148,14 +148,14 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(642, 189);
+            this.textBox1.Location = new System.Drawing.Point(841, 189);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(137, 20);
             this.textBox1.TabIndex = 25;
             // 
             // trbFigRotRate
             // 
-            this.trbFigRotRate.Location = new System.Drawing.Point(634, 152);
+            this.trbFigRotRate.Location = new System.Drawing.Point(833, 152);
             this.trbFigRotRate.Maximum = 20;
             this.trbFigRotRate.Minimum = 5;
             this.trbFigRotRate.Name = "trbFigRotRate";
@@ -166,7 +166,7 @@
             // 
             // trbFigSpeed
             // 
-            this.trbFigSpeed.Location = new System.Drawing.Point(634, 90);
+            this.trbFigSpeed.Location = new System.Drawing.Point(833, 90);
             this.trbFigSpeed.Minimum = 1;
             this.trbFigSpeed.Name = "trbFigSpeed";
             this.trbFigSpeed.Size = new System.Drawing.Size(149, 45);
@@ -178,7 +178,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(639, 72);
+            this.label2.Location = new System.Drawing.Point(838, 72);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(124, 15);
             this.label2.TabIndex = 30;
@@ -188,7 +188,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(995, 618);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.trbFigSize);
             this.Controls.Add(this.btnDefaultA);
