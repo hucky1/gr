@@ -58,7 +58,6 @@
             this.trbFigSize.Size = new System.Drawing.Size(150, 45);
             this.trbFigSize.TabIndex = 22;
             this.trbFigSize.Value = 80;
-            this.trbFigSize.Scroll += new System.EventHandler(this.trbFigSize_Scroll);
             // 
             // btnDefaultA
             // 
@@ -162,7 +161,6 @@
             this.trbFigRotRate.Size = new System.Drawing.Size(149, 45);
             this.trbFigRotRate.TabIndex = 24;
             this.trbFigRotRate.Value = 10;
-            this.trbFigRotRate.Scroll += new System.EventHandler(this.trbFigRotRate_Scroll);
             // 
             // trbFigSpeed
             // 
@@ -172,7 +170,6 @@
             this.trbFigSpeed.Size = new System.Drawing.Size(149, 45);
             this.trbFigSpeed.TabIndex = 23;
             this.trbFigSpeed.Value = 10;
-            this.trbFigSpeed.Scroll += new System.EventHandler(this.trbFigSpeed_Scroll);
             // 
             // label2
             // 
