@@ -28,11 +28,8 @@ namespace graph.models
       
         private static PointF RotatePoint(PointF p, float cos, float sin, PointF centr)
         {
-            var x0 = centr.X;
-            var y0 = centr.Y;
-
-            var x = x0 + (p.X - x0) * cos - (p.Y - y0) * sin;
-            var y = y0 + (p.Y - y0) * cos + (p.X - x0) * sin;
+            var x = p.X * cos - p.Y * sin;
+            var y = p.Y * cos + p.X * sin;
 
             return new PointF(x, y);
         }
