@@ -33,10 +33,15 @@ namespace graph.models
         {
             var square = new List<PointF>();
 
-            square.Add(new PointF(0, 0));
-            square.Add(new PointF(_side, 0));
-            square.Add(new PointF(_side, _side));
-            square.Add(new PointF(0, _side));
+            //square.Add(new PointF(0, 0));
+            //square.Add(new PointF(_side, 0));
+            //square.Add(new PointF(_side, _side));
+            //square.Add(new PointF(0, _side));
+            var halfSize = _side / 2.0;
+            square.Add(new PointF(-halfSize, -halfSize));
+            square.Add(new PointF( halfSize, -halfSize));
+            square.Add(new PointF( halfSize,  halfSize));
+            square.Add(new PointF(-halfSize,  halfSize));
             return square;
         }
 
