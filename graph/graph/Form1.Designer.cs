@@ -96,9 +96,9 @@
             // pictureBox1
             // 
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBox1.Location = new System.Drawing.Point(35, 12);
+            this.pictureBox1.Location = new System.Drawing.Point(12, 12);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(819, 584);
+            this.pictureBox1.Size = new System.Drawing.Size(842, 584);
             this.pictureBox1.TabIndex = 31;
             this.pictureBox1.TabStop = false;
             // 
@@ -165,12 +165,11 @@
             // trbFigRotRate
             // 
             this.trbFigRotRate.Location = new System.Drawing.Point(861, 145);
-            this.trbFigRotRate.Maximum = 20;
-            this.trbFigRotRate.Minimum = 5;
+            this.trbFigRotRate.Minimum = 2;
             this.trbFigRotRate.Name = "trbFigRotRate";
             this.trbFigRotRate.Size = new System.Drawing.Size(149, 45);
             this.trbFigRotRate.TabIndex = 38;
-            this.trbFigRotRate.Value = 10;
+            this.trbFigRotRate.Value = 2;
             // 
             // trbFigSpeed
             // 
@@ -201,6 +200,7 @@
             this.Controls.Add(this.trbFigSpeed);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trbFigSize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trbFigRotRate)).EndInit();

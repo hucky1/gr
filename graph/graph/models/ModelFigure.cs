@@ -16,7 +16,7 @@ namespace graph.models
         {
             var cosAngle = (float)Math.Cos(GetAngleRadian(angle));
             var sinAngle = (float)Math.Sin(GetAngleRadian(angle));
-            Points = points.Select(point => RotatePoint(point, cosAngle, sinAngle, CenterFigure)).ToList();
+            Points = points.Select(point => RotatePoint(point, cosAngle, sinAngle)).ToList();
             return Points;
         }
 
@@ -26,14 +26,10 @@ namespace graph.models
         }
 
       
-        private static PointF RotatePoint(PointF p, float cos, float sin, PointF centr)
+        private static PointF RotatePoint(PointF p, float cos, float sin)
         {
-            var x0 = centr.X;
-            var y0 = centr.Y;
-
-            var x = x0 + (p.X - x0) * cos - (p.Y - y0) * sin;
-            var y = y0 + (p.Y - y0) * cos + (p.X - x0) * sin;
-
+            var x = p.X * cos - p.Y * sin;
+            var y = p.Y * cos + p.X * sin;
             return new PointF(x, y);
         }
 
@@ -53,8 +49,7 @@ namespace graph.models
             => new PointF(a.X + b.X, a.Y + b.Y);
 
 
-        public PointF CenterPoint { get; set; }
-        //public PointF CenterPoint => new PointF(100 / 2f, 100 / 2f);
+       public PointF CenterPoint { get; set; }
         public float AngleRotate { get; set; }
 
         /// <summary>

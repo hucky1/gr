@@ -27,7 +27,7 @@ namespace graph
         public Form1()
         {
             // _square = new ModelSquare(SizeSide*0.7f);
-            _square = new ModelSquare(SizeSide-30);
+            _square = new ModelSquare(SizeSide-35);
             _rhombus = new ModelRhombus(SizeSide);
 
             InitializeComponent();
@@ -37,7 +37,7 @@ namespace graph
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            trbFigRotRate.Value = 10;
+            trbFigRotRate.Value = 2;
             trbFigSize.Value = SizeSide;
             trbFigSpeed.Value = 1;
             _rhombus.Direction = EnumDirection.Right;
@@ -78,10 +78,8 @@ namespace graph
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-          
-
-            _rhombus.AngleRotate = _rhombus.AngleRotate + RotationRate;
-            _square.AngleRotate = _square.AngleRotate + RotationRate;
+            _rhombus.AngleRotate += RotationRate;
+            _square.AngleRotate += RotationRate;
 
 
             Draw();
@@ -118,7 +116,6 @@ namespace graph
            
             Brush br1 = new SolidBrush(Color.FromArgb(colorDec(_rhombus), colorDec(_rhombus), colorInc(_rhombus))); // кисть ромба
             Brush br2 = new SolidBrush(Color.FromArgb(colorInc(_square), colorDec(_square), colorInc(_square))); //кисть квадрата
-           // Moving(1);
             
 
             if (_rhombus.CenterPoint.X + _rhombus.Side > pictureBox1.Width)
@@ -136,14 +133,12 @@ namespace graph
                 Moving(-1, _rhombus);
                 Moving(-1, _square);
             }
-            //Draw(); //перерисовываем фигуру 
 
-            // Moving(-1);
 
 
             _graphic.Clear(SystemColors.Control); // стирание
-            _graphic.FillPolygon(br2, _rhombus.RenderPoints());
-            _graphic.FillPolygon(br1, _square.RenderPoints());
+            _graphic.FillPolygon(br1, _rhombus.RenderPoints());
+            _graphic.FillPolygon(br2, _square.RenderPoints());
 
 
             //file.WriteLine(String.Format("xc = {0}; xy = {1};  00 = {2}; 01 = {3}; 10 = {4}; 11 = {5}", xc,yc  ,square[0], square[1], square[2], square[3]));
@@ -153,5 +148,7 @@ namespace graph
                     _rhombus.CenterPoint.X,
                     _rhombus.CenterPoint.Y); // вывод координат центра тяжести точки
         }
+
+       
     }
 }
