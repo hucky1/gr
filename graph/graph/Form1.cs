@@ -9,39 +9,39 @@ namespace graph
 {
     public partial class Form1 : Form
     {
-        private readonly ModelSquare _square;
-        private readonly ModelRhombus _rhombus;
+        private  ModelSquare _square;
+        private  ModelRhombus _rhombus;
+        bool start;
+        //  private readonly ModelFigure [] figures;
         /// <summary>
         /// Длинна сторон фигур
         /// </summary>
-        const int SizeSide = 120;
+        private int SizeSide = 120;
 
  
         private float SpeedFigure => trbFigSpeed.Value;
 
 
-        private float RotationRate => trbFigRotRate.Value / 10f;
-
+       
         private Graphics _graphic;
 
         public Form1()
         {
-            // _square = new ModelSquare(SizeSide*0.7f);
-            _square = new ModelSquare(SizeSide-35);
-            _rhombus = new ModelRhombus(SizeSide);
-
+             
             InitializeComponent();
+            start = false;
             _graphic = pictureBox1.CreateGraphics(); // Создание графического объекта
-            
+          //  figures = new ModelFigure[] { _square, _rhombus };
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            trbFigRotRate.Value = 2;
-            trbFigSize.Value = SizeSide;
-            trbFigSpeed.Value = 1;
+            
+            _square = new ModelSquare(SizeSide * 0.7f);
+            _rhombus = new ModelRhombus(SizeSide);
             _rhombus.Direction = EnumDirection.Right;
             _square.Direction = EnumDirection.Right;
+
         }
 
         private byte colorInc(ModelFigure _figure)
@@ -74,14 +74,9 @@ namespace graph
         }
 
         private void btnDraw_Click(object sender, EventArgs e) =>Draw();
-
-
         private void timer1_Tick(object sender, EventArgs e)
         {
-            _rhombus.AngleRotate += RotationRate;
-            _square.AngleRotate += RotationRate;
-
-
+           
             Draw();
         }
 
@@ -101,54 +96,59 @@ namespace graph
             Draw();
         }
 
-      
 
-        private void Moving(short vector, ModelFigure _figure)
-        {
+        private void Moving(short vector, short offset, ModelFigure _figure)
+        { 
             _figure.CenterPoint = new PointF((float)
-                (_figure.CenterPoint.X + (SpeedFigure * (vector))),
+                (_figure.CenterPoint.X+((offset)*85)+ (SpeedFigure * (vector))),
                 (float)((pictureBox1.Height / 4.0f) * Math.Cos(_figure.CenterPoint.X * Math.PI / 180) +
                          (pictureBox1.Height / 2.0f)));
-
+        }
+        private void MoveAll(short vector, short offset)
+        {
+            Moving(vector, offset, _rhombus);
+            Moving(vector, offset, _square);
         }
         private void Draw()
         {
-           
+           // _square = new ModelSquare(SizeSide * 0.7f);
+           // _rhombus = new ModelRhombus(SizeSide);
             Brush br1 = new SolidBrush(Color.FromArgb(colorDec(_rhombus), colorDec(_rhombus), colorInc(_rhombus))); // кисть ромба
             Brush br2 = new SolidBrush(Color.FromArgb(colorInc(_square), colorDec(_square), colorInc(_square))); //кисть квадрата
-            
+            if (!start)
+            {
+                MoveAll(1, 1);
+                start = true;
+            }
+                
 
-            if (_rhombus.CenterPoint.X + _rhombus.Side > pictureBox1.Width)
-                _rhombus.Direction = EnumDirection.Left;//меняем направление 
-            if (_rhombus.CenterPoint.X < 0)
+            if (_rhombus.CenterPoint.X + 85 > pictureBox1.Width)
+                _rhombus.Direction = EnumDirection.Left;
+            if (_rhombus.CenterPoint.X -85 < 0)
                 _rhombus.Direction = EnumDirection.Right;
-            if (_rhombus.Direction == EnumDirection.Right) 
-            {
-                Moving(1,_rhombus);
-                Moving(1, _square);
-            }
-               
+            if (_rhombus.Direction == EnumDirection.Right)
+                MoveAll(1, 0);
             else
-            {
-                Moving(-1, _rhombus);
-                Moving(-1, _square);
-            }
-
-
-
+                MoveAll(-1, 0);
             _graphic.Clear(SystemColors.Control); // стирание
             _graphic.FillPolygon(br1, _rhombus.RenderPoints());
             _graphic.FillPolygon(br2, _square.RenderPoints());
-
-
-            //file.WriteLine(String.Format("xc = {0}; xy = {1};  00 = {2}; 01 = {3}; 10 = {4}; 11 = {5}", xc,yc  ,square[0], square[1], square[2], square[3]));
-
             lblXcYc.Text =
                 String.Format("X: {0:0.00}, Y: {1:0.00}",
                     _rhombus.CenterPoint.X,
                     _rhombus.CenterPoint.Y); // вывод координат центра тяжести точки
         }
 
-       
+        private void trbFigSize_Scroll(object sender, EventArgs e)
+        {
+            _rhombus.Side = trbFigSize.Value;
+            _square.Side = trbFigSize.Value*0.7f;
+        }
+
+        private void trbFigRotRate_Scroll(object sender, EventArgs e)
+        {
+            _rhombus.AngleRotate = trbFigRotRate.Value;
+            _square.AngleRotate = trbFigRotRate.Value;
+        }
     }
 }

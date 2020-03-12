@@ -20,8 +20,16 @@ namespace graph.models
         /// Длинна стороны
         /// </summary>
         private float _side;
+        public float Side
+        { 
+            set
+            {
+                _side = value;
+            }
+        }
 
-        public double Side => _side;
+
+       // public double Side => _side;
 
         public ModelSquare(float side)
         {

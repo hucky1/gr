@@ -135,6 +135,7 @@
             this.trbFigSize.Size = new System.Drawing.Size(150, 45);
             this.trbFigSize.TabIndex = 36;
             this.trbFigSize.Value = 80;
+            this.trbFigSize.Scroll += new System.EventHandler(this.trbFigSize_Scroll);
             // 
             // lblXcYc
             // 
@@ -165,20 +166,21 @@
             // trbFigRotRate
             // 
             this.trbFigRotRate.Location = new System.Drawing.Point(861, 145);
-            this.trbFigRotRate.Minimum = 2;
+            this.trbFigRotRate.Maximum = 20;
             this.trbFigRotRate.Name = "trbFigRotRate";
             this.trbFigRotRate.Size = new System.Drawing.Size(149, 45);
             this.trbFigRotRate.TabIndex = 38;
-            this.trbFigRotRate.Value = 2;
+            this.trbFigRotRate.Scroll += new System.EventHandler(this.trbFigRotRate_Scroll);
             // 
             // trbFigSpeed
             // 
             this.trbFigSpeed.Location = new System.Drawing.Point(861, 83);
-            this.trbFigSpeed.Minimum = 1;
+            this.trbFigSpeed.Maximum = 15;
+            this.trbFigSpeed.Minimum = 3;
             this.trbFigSpeed.Name = "trbFigSpeed";
             this.trbFigSpeed.Size = new System.Drawing.Size(149, 45);
             this.trbFigSpeed.TabIndex = 37;
-            this.trbFigSpeed.Value = 10;
+            this.trbFigSpeed.Value = 3;
             // 
             // Form1
             // 
