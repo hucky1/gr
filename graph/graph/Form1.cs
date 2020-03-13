@@ -111,8 +111,6 @@ namespace graph
         }
         private void Draw()
         {
-           // _square = new ModelSquare(SizeSide * 0.7f);
-           // _rhombus = new ModelRhombus(SizeSide);
             Brush br1 = new SolidBrush(Color.FromArgb(colorDec(_rhombus), colorDec(_rhombus), colorInc(_rhombus))); // кисть ромба
             Brush br2 = new SolidBrush(Color.FromArgb(colorInc(_square), colorDec(_square), colorInc(_square))); //кисть квадрата
             if (!start)
@@ -120,16 +118,17 @@ namespace graph
                 MoveAll(1, 1);
                 start = true;
             }
-                
 
-            if (_rhombus.CenterPoint.X + 85 > pictureBox1.Width)
+            var offset = SizeSide * _rhombus.CoeffSize;
+            if (_rhombus.CenterPoint.X + offset> pictureBox1.Width)
                 _rhombus.Direction = EnumDirection.Left;
-            if (_rhombus.CenterPoint.X -85 < 0)
+            if (_rhombus.CenterPoint.X -offset < 0)
                 _rhombus.Direction = EnumDirection.Right;
             if (_rhombus.Direction == EnumDirection.Right)
                 MoveAll(1, 0);
             else
                 MoveAll(-1, 0);
+
             _graphic.Clear(SystemColors.Control); // стирание
             _graphic.FillPolygon(br1, _rhombus.RenderPoints());
             _graphic.FillPolygon(br2, _square.RenderPoints());
@@ -141,8 +140,8 @@ namespace graph
 
         private void trbFigSize_Scroll(object sender, EventArgs e)
         {
-            _rhombus.Side = trbFigSize.Value;
-            _square.Side = trbFigSize.Value*0.7f;
+            _rhombus.CoeffSize = trbFigSize.Value/10f;
+            _square.CoeffSize = trbFigSize.Value/10f;
         }
 
         private void trbFigRotRate_Scroll(object sender, EventArgs e)

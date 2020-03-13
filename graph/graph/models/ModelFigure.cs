@@ -8,6 +8,18 @@ namespace graph.models
 {
     public abstract class ModelFigure
     {
+        private float Coeff = 1f ;
+        public float CoeffSize
+        {
+            get
+            {
+                return Coeff;
+            }
+            set
+            {
+                Coeff = value; 
+            }
+        }
         public List<PointF> Points { get; private set; }
 
         public EnumDirection Direction { get; set; }
@@ -41,12 +53,12 @@ namespace graph.models
         public PointF[] RenderPoints()
         {
             RotateFigure(AngleRotate);
-            var newPosition = Points.Select(f => SumPoints(f, CenterPoint));
+            var newPosition = Points.Select(f => SumPoints(f, CenterPoint,Coeff));
             return newPosition.ToArray();
         }
 
-        protected static PointF SumPoints(PointF a, PointF b)
-            => new PointF(a.X + b.X, a.Y + b.Y);
+        protected static PointF SumPoints(PointF a, PointF b,float coeff)
+            => new PointF((a.X + b.X)*coeff, (a.Y + b.Y)*coeff);
 
 
        public PointF CenterPoint { get; set; }

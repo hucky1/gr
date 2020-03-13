@@ -129,12 +129,12 @@
             // trbFigSize
             // 
             this.trbFigSize.Location = new System.Drawing.Point(860, 30);
-            this.trbFigSize.Maximum = 140;
-            this.trbFigSize.Minimum = 80;
+            this.trbFigSize.Maximum = 12;
+            this.trbFigSize.Minimum = 5;
             this.trbFigSize.Name = "trbFigSize";
             this.trbFigSize.Size = new System.Drawing.Size(150, 45);
             this.trbFigSize.TabIndex = 36;
-            this.trbFigSize.Value = 80;
+            this.trbFigSize.Value = 10;
             this.trbFigSize.Scroll += new System.EventHandler(this.trbFigSize_Scroll);
             // 
             // lblXcYc
